@@ -1,6 +1,6 @@
 #panel{
   width: 400px;
-  height: 475px;
+  height: 550px;
   box-shadow: 2px 2px #888888;
   padding-top: 10px;
   padding-right: 5px;
@@ -12,6 +12,39 @@
   top: 100px;
   border-radius: 25px;
   margin-left: 30px;
+
+}
+
+#panel2{
+  width: 800px;
+  height: 550px;
+  box-shadow: 2px 2px #888888;
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-bottom: 50px;
+  padding-left: 5px;
+  position:absolute;
+  background-color: #FAFAFA;
+  top: 100px;
+  border-radius: 25px;
+  margin-left: 500px;
+
+}
+
+
+#panel3{
+  width: 800px;
+  height: 550px;
+  box-shadow: 2px 2px #888888;
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-bottom: 50px;
+  padding-left: 5px;
+  position:absolute;
+  background-color: #FAFAFA;
+  top: 100px;
+  border-radius: 25px;
+  margin-left: 500px;
 
 }
 
@@ -36,7 +69,7 @@ input[type=password], select {
     box-sizing: border-box;
 }
 
-input[type=submit] {
+#btn_load {
     width: 100%;
     background-color: #7BAFF1;
     color: white;
@@ -46,8 +79,14 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+input[type=text]:focus{
+  outline: 2px solid #7BAFF1;     /* oranges! yey */
+}
+input[type=password]:focus{
+  outline: 2px solid #7BAFF1;     /* oranges! yey */
+}
 
-input[type=submit]:hover {
+#btn_load:hover {
     background-color: #729DD5;
 }
 
@@ -55,4 +94,29 @@ input[type=submit]:hover {
 
   padding:2em;
   border-radius: 25px;
+}
+
+#formulario{
+  height: 350px;
+}
+
+
+
+#btn_extract{
+  width: 100%;
+  background-color: #7BAFF1;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#btn_extract:hover {
+    background-color: #729DD5;
+}
+
+.escondido{
+  display: none;
 }
