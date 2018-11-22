@@ -17,7 +17,7 @@ def simple_upload(request):
 
 
 def read_file(request):
-    dataframe = pd.read_excel("/media/oracle.xlsx")
+    dataframe = pd.read_excel("http://localhost:8000/media/oracle.xlsx")
     return render(request, 'showfile.html', {
     'make_list': dataframe
 })
