@@ -117,7 +117,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "files"),
-    
+
 ]
 
 
@@ -127,3 +127,5 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL ="/media/"   

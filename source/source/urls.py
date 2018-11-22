@@ -23,9 +23,14 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', views.prueba),
+    path('load_dataset/', views.simple_upload),
+    path("read_file/", views.read_file),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'), # new
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
-]+ static(settings.STATIC_URL)
-    # aaaaa
+
+]
+
+if settings.DEBUG:
+    urlpatterns +=  static(settings.STATIC_URL)
+    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

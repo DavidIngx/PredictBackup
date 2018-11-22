@@ -74,8 +74,9 @@ body {font-family: "Lato", sans-serif}
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
 
 
-    <a type="submit" id="btn_load" href="/load_dataset/"  style="margin-top: :100px;" >Load Dataset</a>
-    <a type="submit" id="btn_extract"  href="/load_dataset/"  style="margin-bottom:240px;">Extract Info Disk</a>
+
+    <button type="button" id="btn_load" name="button"  style="margin-top: :100px;">Load Dataset</button>
+    <button type="button" id="btn_extract" name="button"  style="margin-bottom:240px;">Extract Info Disk</button>
 
 
     {% else %}
@@ -93,6 +94,43 @@ body {font-family: "Lato", sans-serif}
   </div>
 
 
+  <div id="panel2">
+    <fieldset id="el11">
+      <legend id="el11"> Select HD</legend>
+
+
+
+    </fieldset>
+  </div>
+</div>
+
+
+<div id="panel3">
+  <fieldset id="el11">
+    <legend id="el11"> Load Dataset</legend>
+
+
+    {% load static %}
+
+
+      <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+        <input type="file" name="myfile">
+        <button type="submit">Upload</button>
+      </form>
+
+      {% if uploaded_file_url %}
+        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+      {% endif %}
+
+      <p><a href="{% url 'home' %}">Return to home</a></p>
+
+
+
+
+
+  </fieldset>
+</div>
 
 
 
@@ -148,6 +186,28 @@ var myIndex = 0;
 carousel();
 
 
+var bt1 = document.getElementById("btn_extract");
+bt1.onclick = mostrarDiv1;
+var bt2 = document.getElementById("btn_load");
+bt2.onclick = mostrarDiv2;
+
+var div1= document.getElementById("panel2");
+div1.classList.add("escondido");
+
+var div2= document.getElementById("panel3");
+
+
+
+function mostrarDiv1() {
+  div1.classList.remove("escondido");
+  div2.classList.add("escondido");
+
+}
+function mostrarDiv2() {
+  div1.classList.add("escondido");
+  div2.classList.remove("escondido");
+
+}
 
 
 function carousel() {
