@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('load_dataset/', views.simple_upload),
     path("read_file/", views.read_file),
+    path("read_disk/", views.read_disk),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
