@@ -5,16 +5,28 @@
     <title></title>
   </head>
   <body>
-<table border="2" width="300px">
+     Drive = {{select}} <br>
+    <table border="2" width="500px" align="center" style="text-align:left;">
+
+      <tr>
+      <th >Tamaño</th>
+      <th >Mes</th>
+      <th >Dia</th>
+      <th >Año</th>
+      <th >Ruta</th>
+      </tr>
+
+      {% for a, b, c, d, e  in dataframe %}
+      <tr>
+      <th >{{a}}</th>
+      <th >{{b}}</th>
+      <th >{{c}}</th>
+      <th >{{d}}</th>
+      <th >{{e}}</th>
+      </tr>
 
 
-    {% for o in make_list %}
-    <tr>
-      <td>{{o}}</td>
-    </tr>
-
-
-{% endfor %}
-</table>
+      {% endfor %}
+      </table>
   </body>
 </html>

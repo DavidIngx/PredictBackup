@@ -91,24 +91,27 @@ body {font-family: "Lato", sans-serif}
     </fieldset>
 
 
-  </div>
+
+      <form class="" action="/read_disk/" method="post">
+            {% csrf_token %}
+      </div>
 
 
-  <div id="panel2">
-    <fieldset id="el11">
-      <legend id="el11"> Select HD</legend>
+      <div id="panel2">
+        <fieldset id="el11">
+          <legend id="el11"> Select HD</legend>
 
 
-  <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
-  <div class="custom-select" >
-    <select>
-      {% for o in drives %}
+      <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
+      <div class="custom-select" >
+        <select name="disk">
+          {% for o in drives %}
 
-      <option value="{{o}}">{{o}}</option>
-      {% endfor %}
-    </select>
-  </div>
-<br>
+          <option value="{{o}}">{{o}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <br>
       <script>
       var x, i, j, selElmnt, a, b, c;
       /*look for any elements with the class "custom-select":*/
@@ -184,30 +187,12 @@ body {font-family: "Lato", sans-serif}
       document.addEventListener("click", closeAllSelect);
       </script>
 
-      <div class="w3-light-grey">
-        <div id="myBar" class="w3-green" style="width:0%">0%</div>
-      </div>
-      <br>
-      <button class="w3-button w3-green" onclick="move()">Click Me</button>
+      <input type="submit" name="" value="Extract">
 
-      </div>
+      </form>
 
-      <script>
-      function move() {
-        var elem = document.getElementById("myBar");
-        var width = 0;
-        var id = setInterval(frame, 100);
-        function frame() {
-          if (width >= 100) {
-            clearInterval(id);
-          } else {
-            width++;
-            elem.style.width = width + '%';
-            elem.innerHTML = width * 1  + '%';
-          }
-        }
-      }
-      </script>
+
+
 
 
     </fieldset>
@@ -226,14 +211,24 @@ body {font-family: "Lato", sans-serif}
       <form method="post" enctype="multipart/form-data" >
             {% csrf_token %}
         <input type="file" name="myfile">
-        <button type="submit">Upload</button>
+        <button type="submit" >Upload</button>
       </form>
+
+
+
 
       {% if uploaded_file_url %}
         <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+        <form  action="/read_file/" method="post">
+            {% csrf_token %}
+          <input type="hidden" name="url" value="{{uploaded_file_url}}" >
+          <input type="submit" name="" value="Continuar">
+        </form>
+
       {% endif %}
 
-      <p><a href="{% url 'home' %}">Return to home</a></p>
+
+
 
 
 
@@ -241,7 +236,6 @@ body {font-family: "Lato", sans-serif}
 
   </fieldset>
 </div>
-
 
 
 
