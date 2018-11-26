@@ -88,18 +88,21 @@ def read_file(request):
 
     xd["uno"] = xd["uno"].str.replace(' ',',')
     xd["uno"] = xd["uno"].str.replace(',,',',')
+    xd["uno"] = xd["uno"].str.replace(',,,,',',')
     xd["uno"] = xd["uno"].str.replace('[',',')
     xd["uno"] = xd["uno"].str.replace(',','/')
     xd["uno"] = xd["uno"].str.replace('///','/')
     xd["uno"] = xd["uno"].str.replace('//','/')
 
     if(mysql == 0 ):
-        xd5 = pd.DataFrame(xd.uno.str.split('/',6).tolist(), columns=["0","Tamaño", "Mes", "Dia","Año"])
-        xd5 = xd5.drop(columns=['0'])
+        xd5 = pd.DataFrame(xd.uno.str.split('/',4).tolist())
+        xd5 = xd5.rename(columns={1: "Tamaño", 2: "Mes", 3:"Dia", 4:"Año"})
+        xd5 = xd5.drop(columns=[0])
     else:
         xd5 = pd.DataFrame(xd.uno.str.split('/',6).tolist(), columns=["0","Tamaño", "Mes", "Dia","Año"])
         xd5 = xd5.drop(columns=['0'])
 
+    xd5["Tamaño"] = xd5["Tamaño"].astype(int)
 
     xd5["Raiz"]=xd4["Raiz"]
     xd5["SubDir"]=xd4["SubDir"]
@@ -169,10 +172,31 @@ def read_file(request):
     xd5["SubDir2"] = xd5["SubDir2"].astype(int)
     xd5["Nombre"] = xd5["Nombre"].astype(str)
 
+    count=0;
+    for row in xd5["Mes"]:
+
+        if (row == 10 ):
+            xd5.loc[count, 'Año'] = 2017
+        if (row == 11 ):
+            xd5.loc[count, 'Año'] = 2017
+        if (row == 12 ):
+            xd5.loc[count, 'Año'] = 2017
+
+
+
+
+        count+=1;
+
+    filedb = pd.read_csv('/home/linux/PredictBackup/source/media/db.csv')
+    filedb = pd.concat([filedb, xd5],ignore_index=True)
+
+    filedb.to_csv('/home/linux/PredictBackup/source/media/db.csv',index=False)
+
     mylist = zip(xd5["Tamaño"], xd5["Mes"], xd5["Dia"], xd5["Año"], xd5["Raiz"], xd5["SubDir"], xd5["SubDir2"], xd5["Nombre"])
 
     return render(request, 'showfile.html', {
-    'select':url,
+                            'dataframe': mylist,
+                            'select':url,
 })
 
 
