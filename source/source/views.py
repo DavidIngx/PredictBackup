@@ -48,6 +48,8 @@ def read_file(request):
         xd = xd[xd.dos != './SoporteOld']
         xd = xd[xd.dos != './Univirtual']
         xd = xd[xd.dos != './VirtualUlagranco']
+        xd = xd[xd.dos != './Juridico']
+
     else:
 
         xd = xd[xd.dos != './AUDITORIA']
@@ -243,6 +245,7 @@ def read_disk(request):
         xd = xd[xd.dos != './SoporteOld']
         xd = xd[xd.dos != './Univirtual']
         xd = xd[xd.dos != './VirtualUlagranco']
+        xd = xd[xd.dos != './Juridico']
     else:
 
         xd = xd[xd.dos != './AUDITORIA']
@@ -364,19 +367,27 @@ def read_disk(request):
         xd5["SubDir2"] = xd5["SubDir2"].astype(int)
         xd5["Nombre"] = xd5["Nombre"].astype(str)
 
-    filedb = pd.read_csv('/home/linux/PredictBackup/db.csv')
-    filedb = pd.concat([filedb, xd5],ignore_index=True)
     count=0;
-    for row in filedb["Mes"]:
+    for row in xd5["Mes"]:
+
         if (row == 10 ):
-            filedb.loc[count, 'Año'] = 2017
+            xd5.loc[count, 'Año'] = 2017
         if (row == 11 ):
-            filedb.loc[count, 'Año'] = 2017
+            xd5.loc[count, 'Año'] = 2017
         if (row == 12 ):
-            filedb.loc[count, 'Año'] = 2017
+            xd5.loc[count, 'Año'] = 2017
+
+
+
+
         count+=1;
 
-    filedb.to_csv('/home/linux/PredictBackup/db.csv',index=False)
+    filedb = pd.read_csv('/home/linux/PredictBackup/source/media/db.csv')
+    filedb = pd.concat([filedb, xd5],ignore_index=True)
+
+    filedb.to_csv('/home/linux/PredictBackup/source/media/db.csv',index=False)
+
+
 
     mylist = zip(xd5["Tamaño"], xd5["Mes"], xd5["Dia"], xd5["Año"], xd5["Raiz"], xd5["SubDir"], xd5["SubDir2"], xd5["Nombre"])
 
