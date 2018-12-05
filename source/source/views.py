@@ -207,8 +207,8 @@ def read_disk(request):
 
     drive = request.POST["disk"]
     drive = drive.replace('\r\n','')
-    #os.chdir("/media/linux/"+drive)
-    os.chdir("/home/linux/Documents/oracle")
+    os.chdir("/media/linux/"+drive)
+    #os.chdir("/home/linux/Documents/oracle")
     command = os.popen("tree  -D  -f -s -i ","r")
     xd = pd.DataFrame(columns=['inicio'])
 
