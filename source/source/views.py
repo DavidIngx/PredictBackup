@@ -341,22 +341,22 @@ def read_disk(request):
         xd5["SubDir2"] = xd5["SubDir2"].str.replace('migra','5') # migra = 5
 
     else:
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('BachilleratoVirtual','3') #BachilleratoVirtual = 3
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Biblioteca_Nuevo','4') #Biblioteca_Nuevo = 4
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Adviser','2') #Adviser = 2
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Diplomados','5') #Diplomados = 5
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Helpdesk','6') #Helpdesk = 6
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('IMC','7') #IMC = 7
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Intranet','8') #Intranet = 8
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Koha','9') #Koha = 9
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('MiNube','10') #MiNube = 10
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('PaginaUGC','11') #PaginaUGC = 11
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('ReservasCmav','12') #ReservasCmav = 12
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('SoporteOld','14') #SoporteOld = 14
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Soporte','13') #Soporte = 13
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Univirtual','15') #Univirtual = 15
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('VirtualUlagranco','16') #VirtualUlagranco = 16
-        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Juridico','17') #VirtualUlagranco = 16
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('BachilleratoVirtual','8') #BachilleratoVirtual = 3
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Biblioteca_Nuevo','9') #Biblioteca_Nuevo = 4
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Adviser','7') #Adviser = 2
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Diplomados','10') #Diplomados = 5
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Helpdesk','11') #Helpdesk = 6
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('IMC','12') #IMC = 7
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Intranet','13') #Intranet = 8
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Koha','14') #Koha = 9
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('MiNube','15') #MiNube = 10
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('PaginaUGC','16') #PaginaUGC = 11
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('ReservasCmav','17') #ReservasCmav = 12
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('SoporteOld','19') #SoporteOld = 14
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Soporte','18') #Soporte = 13
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Univirtual','20') #Univirtual = 15
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('VirtualUlagranco','21') #VirtualUlagranco = 16
+        xd5["SubDir2"] = xd5["SubDir2"].str.replace('Juridico','22') #VirtualUlagranco = 16
 
         xd5["Tamaño"] = xd5["Tamaño"].astype(int)
         xd5["Mes"] = xd5["Mes"].astype(int)
@@ -376,8 +376,6 @@ def read_disk(request):
             xd5.loc[count, 'Año'] = 2017
         if (row == 12 ):
             xd5.loc[count, 'Año'] = 2017
-
-
 
 
         count+=1;
