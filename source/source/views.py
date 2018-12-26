@@ -5,6 +5,20 @@ from django.core.files.storage import FileSystemStorage
 import pandas as pd
 import os
 import numpy as np
+import matplotlib.pyplot as plt
+from keras.models import load_model
+import pathlib
+import pandas as pd
+import seaborn as sns
+import tensorflow as tf
+import keras
+from keras.models import Sequential
+from keras.layers import Dense, Activation, Dropout, Flatten
+from keras.optimizers import Adam, SGD, Adamax
+
+
+print(tf.__version__)
+
 
 def simple_upload(request):
     os.chdir("/media/linux")
@@ -400,6 +414,85 @@ def load_dataset(request):
     url = request.POST["url"]
     return render(request, "prueba.html",{"url":url})
 
-def train(request):
-    url = request.POST["url"]
-    return render(request, "prueba.html",{"url":url})
+
+def train_view(request):
+    dataset = pd.read_csv("http://127.0.0.1:8000/media/db3.csv")
+    subdir = dataset.pop('SubDir2')
+    subdirprin = dataset.pop('SubDir')
+    dataset['RMAN'] = (subdirprin == 1)*1.0
+    dataset['export'] = (subdirprin == 0)*1.0
+    dataset['MySQL'] = (subdirprin == 2)*1.0
+    dataset['ICEBERG'] = (subdir == 1)*1.0
+    dataset['RMANINT'] = (subdir == 2)*1.0
+    dataset['TCONTROL'] = (subdir == 3)*1.0
+    dataset['UGCDB'] = (subdir == 4)*1.0
+    dataset['migra'] = (subdir == 5)*1.0
+    dataset['Adviser'] = (subdir == 7)*1.0
+    dataset['BachilleratoVirtual'] = (subdir == 8)*1.0
+    dataset['Biblioteca_Nuevo'] = (subdir == 9)*1.0
+    dataset['Diplomados'] = (subdir == 10)*1.0
+    dataset['Helpdesk'] = (subdir == 11)*1.0
+    dataset['IMC'] = (subdir == 12)*1.0
+    dataset['Intranet'] = (subdir == 13)*1.0
+    # dataset['Koha'] = (subdir == 14)*1.0
+    dataset['MiNube'] = (subdir == 15)*1.0
+    dataset['PaginaUGC'] = (subdir == 16)*1.0
+    dataset['ReservasCmav'] = (subdir == 17)*1.0
+    dataset['Soporte'] = (subdir == 18)*1.0
+    dataset['SoporteOld'] = (subdir == 19)*1.0
+    dataset['Univirtual'] = (subdir == 20)*1.0
+    dataset['VirtualUlagranco'] = (subdir == 21)*1.0
+    dataset['Juridico'] = (subdir == 22)*1.0
+    namefile = dataset.pop('Nombre')
+    dataset["Tamaño"] /= 1000000000
+    train_dataset = dataset.sample(frac=0.9,random_state=0)
+    test_dataset = dataset.drop(train_dataset.index)
+    sns_plot = sns.pairplot(train_dataset[["Tamaño", "Dia", "Mes"]], diag_kind="kde")
+    sns_plot.savefig("/home/linux/PredictBackup/source/media/analisis.png")
+    train_stats = train_dataset.describe()
+    train_stats.pop("Tamaño")
+    train_stats = train_stats.transpose()
+    train_labels = train_dataset.pop('Tamaño')
+    test_labels = test_dataset.pop('Tamaño')
+
+    def norm(x):
+        return (x - train_stats['mean']) / train_stats['std']
+
+    normed_train_data = norm(train_dataset)
+    normed_test_data = norm(test_dataset)
+
+    def build_model():
+        model = Sequential()
+        model.add(Dense(64, activation="relu", input_shape=[len(train_dataset.keys())]))
+        model.add(Dense(1))
+        optimizer = Adamax(0.0007)
+        model.compile(loss='mse',
+                optimizer=optimizer,
+                metrics=['mae', 'mse'])
+        return model
+
+    model = build_model()
+    example_batch = normed_train_data[:10]
+    example_result = model.predict(example_batch)
+
+    # Display training progress by printing a single dot for each completed epoch
+    class PrintDot(keras.callbacks.Callback):
+        def on_epoch_end(self, epoch, logs):
+            if epoch % 100 == 0: print('')
+            print('.', end='')
+
+    EPOCHS = 400
+
+    history = model.fit(
+      normed_train_data, train_labels,
+      epochs=EPOCHS, validation_split = 0.2, verbose=0,
+      callbacks=[PrintDot()])
+    model.save('/home/linux/PredictBackup/source/media/my_model.h5')
+
+
+
+
+
+
+
+    return render(request, "train.html")

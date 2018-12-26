@@ -72,21 +72,10 @@ body {font-family: "Lato", sans-serif}
       {% if user.is_authenticated %}
 
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
+    <p>Inspect the data</p>
+    <img src="http://127.0.0.1:8000/media/analisis.png" alt="" width="315px" height="300px">
+<br><br>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <p>You was initialize the process , you must push next</p>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
     {% else %}
 
@@ -112,8 +101,8 @@ body {font-family: "Lato", sans-serif}
 <div id="panel3">
   <fieldset id="el11">
     <legend id="el11"> Show Dataset</legend>
-
-    Drive = {{select}} <br><br>
+<br>
+    Drive = {{select}}<br><br>
    <table border="2" width="500px" align="center" style="text-align:left;">
 
      <tr>
@@ -143,10 +132,7 @@ body {font-family: "Lato", sans-serif}
 
      {% endfor %}
      </table>
-     <br>
-     <br>
-     <br>
-
+     <br><br><br>
      <a href="www.google.com"><button type="button" id="btn_load" name="button"  style="margin-top: :100px;">Next</button></a>
 
   </fieldset>
