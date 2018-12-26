@@ -195,7 +195,8 @@ def read_file(request):
 
     filedb.to_csv('/home/linux/PredictBackup/source/media/db.csv',index=False)
 
-    mylist = zip(xd5["Tamaño"], xd5["Mes"], xd5["Dia"], xd5["Año"], xd5["Raiz"], xd5["SubDir"], xd5["SubDir2"], xd5["Nombre"])
+    mylist = zip(xd5["Tamaño"].tail(), xd5["Mes"].tail(), xd5["Dia"].tail(), xd5["Año"].tail(), xd5["Raiz"].tail(), xd5["SubDir"].tail(), xd5["SubDir2"].tail(), xd5["Nombre"].tail())
+
 
     return render(request, 'showfile.html', {
                             'dataframe': mylist,
@@ -387,7 +388,7 @@ def read_disk(request):
 
 
 
-    mylist = zip(xd5["Tamaño"], xd5["Mes"], xd5["Dia"], xd5["Año"], xd5["Raiz"], xd5["SubDir"], xd5["SubDir2"], xd5["Nombre"])
+    mylist = zip(xd5["Tamaño"].tail(), xd5["Mes"].tail(), xd5["Dia"].tail(), xd5["Año"].tail(), xd5["Raiz"].tail(), xd5["SubDir"].tail(), xd5["SubDir2"].tail(), xd5["Nombre"].tail())
 
     return render(request, 'showfile.html', {
                             'dataframe': mylist,
@@ -396,5 +397,9 @@ def read_disk(request):
 
 
 def load_dataset(request):
+    url = request.POST["url"]
+    return render(request, "prueba.html",{"url":url})
+
+def train(request):
     url = request.POST["url"]
     return render(request, "prueba.html",{"url":url})
