@@ -482,16 +482,40 @@ def train_view(request):
             print('.', end='')
 
     EPOCHS = 400
-
+    """
     history = model.fit(
       normed_train_data, train_labels,
       epochs=EPOCHS, validation_split = 0.2, verbose=0,
       callbacks=[PrintDot()])
     model.save('/home/linux/PredictBackup/source/media/my_model.h5')
+    hist = pd.DataFrame(history.history)
+    hist['epoch'] = history.epoch
 
 
+    def plot_history(history):
+        plt.figure()
+        plt.xlabel('Epoch')
+        plt.ylabel('Mean Abs Error [Tamaño]')
+        plt.plot(hist['epoch'], hist['mean_absolute_error'],
+               label='Train Error')
+        plt.plot(hist['epoch'], hist['val_mean_absolute_error'],
+               label = 'Val Error')
+        plt.legend()
+        plt.ylim([0,0.5])
+        plt.savefig('/home/linux/PredictBackup/source/media/absolute.png')
+        plt.figure()
+        plt.xlabel('Epoch')
+        plt.ylabel('Mean Square Error [$Tamaño^2$]')
+        plt.plot(hist['epoch'], hist['mean_squared_error'],
+               label='Train Error')
+        plt.plot(hist['epoch'], hist['val_mean_squared_error'],
+               label = 'Val Error')
+        plt.legend()
+        plt.ylim([0,1.5])
+        plt.savefig('/home/linux/PredictBackup/source/media/squared.png')
 
-
+    plot_history(history)
+    """
 
 
 
