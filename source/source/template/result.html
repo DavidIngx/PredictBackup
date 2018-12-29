@@ -72,11 +72,7 @@ body {font-family: "Lato", sans-serif}
       {% if user.is_authenticated %}
 
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
-    <p>Ingresa en gigas el tamaño del medio de almacenamiento porfavor:</p>
-    <form class="" action="/result/" method="post">
-      <input type="text" name="size" value="">
-      <input type="submit" name="" value="Calcular">
-    </form>
+
     <br><br><br><br><br><br><br><br><br>
 
     {% else %}
@@ -102,10 +98,9 @@ body {font-family: "Lato", sans-serif}
 
 <div id="panel3">
   <fieldset id="el11">
-    <legend id="el11"> Show Predict</legend>
+    <legend id="el11"> Storage Medium</legend>
 
-    <img src="http://127.0.0.1:8000/media/predict.png" alt="" width="700px" height="380  0px">
-    <br>
+    
 
 
   </fieldset>

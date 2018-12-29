@@ -28,6 +28,7 @@ urlpatterns = [
     path("read_disk/", views.read_disk),
     path("train/", views.train_view),
     path("predict/", views.predict_view),
+    path("result/", views.result_view),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 

@@ -579,3 +579,13 @@ def predict_view(request):
     plt.savefig('/home/linux/PredictBackup/source/media/predict.png')
 
     return render(request, "predict.html")
+
+
+
+
+
+
+def result_view(request):
+    #size = request.POST["disk"]
+
+    return render(request, "predict.html")
