@@ -553,7 +553,8 @@ def predict_view(request):
     dataset["Tamaño"] /= 1000000000
     train_dataset = dataset.sample(frac=0.9,random_state=0)
     test_dataset = dataset.drop(train_dataset.index)
-
+    sns_plot = sns.pairplot(train_dataset[["Tamaño", "Dia", "Mes"]], diag_kind="kde")
+    sns_plot.savefig("/home/linux/PredictBackup/source/media/analisis.png")
     train_stats = train_dataset.describe()
     train_stats.pop("Tamaño")
     train_stats = train_stats.transpose()
