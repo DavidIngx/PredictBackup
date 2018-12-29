@@ -535,13 +535,7 @@ def train_view(request):
     prediction_last = model.predict(normed_predict).flatten()
     seismeses["Tamaño"] = prediction_last
 
-    i=0.0
-    for suma in prediction_last:
-        if(suma < 0):
-            suma = suma * -1
-        i += suma
-
-    discos = round(i/2000)
+    seismeses.to_csv("/home/linux/PredictBackup/source/media/prediccion.csv")
 
 
 
@@ -702,5 +696,14 @@ def result_view(request):
 
     discos = round(i/size)
     """
+    prediction_last = pd.read_csv("http://127.0.0.1:8000/media/prediccion.csv")
+    prediction_x= prediction_last.pop("Tamaño")
+    i=0.0
+    for suma in prediction_x:
+        if(suma < 0):
+            suma = suma * -1
+        i += suma
+
+    discos = round(i/size)
 
     return render(request, "result.html",  {'select':discos,})

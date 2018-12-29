@@ -72,8 +72,8 @@ body {font-family: "Lato", sans-serif}
       {% if user.is_authenticated %}
 
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
-
-    <br><br><br><br><br><br><br><br><br>
+    <img src="http://localhost:8000/media/finish.png" alt="" width="320px">
+    <br><br><br>
 
     {% else %}
 
@@ -98,11 +98,13 @@ body {font-family: "Lato", sans-serif}
 
 <div id="panel3">
   <fieldset id="el11">
-    <legend id="el11"> Storage Medium</legend>
+    <legend id="el11"> Buy Storage</legend>
 
-    {{select}}
+     <h1 style="font-size: 150px;"  align="center"># {{select}}</h1>
+    <h5 align="center" >Download details : </h5>
+    <p  align="center" ><a  style="color : blue;" href="http://127.0.0.1:8000/media/prediccion.csv">http://127.0.0.1:8000/media/prediccion.csv</a></p>
 
-
+    <br><br>
   </fieldset>
 </div>
 
