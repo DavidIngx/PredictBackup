@@ -481,7 +481,7 @@ def train_view(request):
             if epoch % 100 == 0: print('')
             print('.', end='')
 
-    EPOCHS = 400
+    EPOCHS = 10
 
     history = model.fit(
       normed_train_data, train_labels,
@@ -586,6 +586,64 @@ def predict_view(request):
 
 
 def result_view(request):
-    #size = request.POST["disk"]
+    size = int(request.POST["size"])
 
-    return render(request, "predict.html")
+    dataset = pd.read_csv("http://127.0.0.1:8000/media/db3.csv")
+    subdir = dataset.pop('SubDir2')
+    subdirprin = dataset.pop('SubDir')
+    dataset['RMAN'] = (subdirprin == 1)*1.0
+    dataset['export'] = (subdirprin == 0)*1.0
+    dataset['MySQL'] = (subdirprin == 2)*1.0
+    dataset['ICEBERG'] = (subdir == 1)*1.0
+    dataset['RMANINT'] = (subdir == 2)*1.0
+    dataset['TCONTROL'] = (subdir == 3)*1.0
+    dataset['UGCDB'] = (subdir == 4)*1.0
+    dataset['migra'] = (subdir == 5)*1.0
+    dataset['Adviser'] = (subdir == 7)*1.0
+    dataset['BachilleratoVirtual'] = (subdir == 8)*1.0
+    dataset['Biblioteca_Nuevo'] = (subdir == 9)*1.0
+    dataset['Diplomados'] = (subdir == 10)*1.0
+    dataset['Helpdesk'] = (subdir == 11)*1.0
+    dataset['IMC'] = (subdir == 12)*1.0
+    dataset['Intranet'] = (subdir == 13)*1.0
+    # dataset['Koha'] = (subdir == 14)*1.0
+    dataset['MiNube'] = (subdir == 15)*1.0
+    dataset['PaginaUGC'] = (subdir == 16)*1.0
+    dataset['ReservasCmav'] = (subdir == 17)*1.0
+    dataset['Soporte'] = (subdir == 18)*1.0
+    dataset['SoporteOld'] = (subdir == 19)*1.0
+    dataset['Univirtual'] = (subdir == 20)*1.0
+    dataset['VirtualUlagranco'] = (subdir == 21)*1.0
+    dataset['Juridico'] = (subdir == 22)*1.0
+    namefile = dataset.pop('Nombre')
+    dataset["Tamaño"] /= 1000000000
+    train_dataset = dataset.sample(frac=0.9,random_state=0)
+    test_dataset = dataset.drop(train_dataset.index)
+
+    train_stats = train_dataset.describe()
+    train_stats.pop("Tamaño")
+    train_stats = train_stats.transpose()
+    train_labels = train_dataset.pop('Tamaño')
+    test_labels = test_dataset.pop('Tamaño')
+
+    def norm(x):
+        return (x - train_stats['mean']) / train_stats['std']
+
+
+
+    model = load_model('/home/linux/PredictBackup/source/media/my_model.h5')
+    seismeses = pd.read_csv("/home/linux/PredictBackup/source/media/predictgood.csv")
+    normed_predict = norm(seismeses)
+    prediction_last = model.predict(normed_predict).flatten()
+    seismeses["Tamaño"] = prediction_last
+
+    i=0.0
+    for suma in prediction_last:
+        if(suma < 0):
+            suma = suma * -1
+        i += suma
+
+    discos = round(i/size)
+
+
+    return render(request, "result.html",  {'select':discos,})
