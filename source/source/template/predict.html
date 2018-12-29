@@ -74,6 +74,7 @@ body {font-family: "Lato", sans-serif}
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
     <p>Ingresa en gigas el tamaño del medio de almacenamiento porfavor:</p>
     <form class="" action="/result/" method="post">
+        {% csrf_token %}
       <input type="text" name="size" value="">
       <input type="submit" name="" value="Calcular">
     </form>
