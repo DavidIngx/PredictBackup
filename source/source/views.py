@@ -516,12 +516,42 @@ def train_view(request):
 
     plot_history(history)
 
+    plt.clf()
+    test_predictions = model.predict(normed_test_data).flatten()
+    predictx=plt;
+    plt.scatter(test_labels, test_predictions)
+    plt.xlabel('True Values [Tamaño]')
+    plt.ylabel('Predictions [Tamaño]')
+    plt.axis('equal')
+    plt.axis('square')
+    plt.xlim([0,plt.xlim()[1]])
+    plt.ylim([0,plt.ylim()[1]])
+    _ = plt.plot([-100, 100], [-100, 100])
+    plt.savefig('/home/linux/PredictBackup/source/media/predict.png')
+
+
+    seismeses = pd.read_csv("/home/linux/PredictBackup/source/media/predictgood.csv")
+    normed_predict = norm(seismeses)
+    prediction_last = model.predict(normed_predict).flatten()
+    seismeses["Tamaño"] = prediction_last
+
+    i=0.0
+    for suma in prediction_last:
+        if(suma < 0):
+            suma = suma * -1
+        i += suma
+
+    discos = round(i/2000)
 
 
 
     return render(request, "train.html")
 
 def predict_view(request):
+
+
+    """
+
     dataset = pd.read_csv("http://127.0.0.1:8000/media/db3.csv")
     subdir = dataset.pop('SubDir2')
     subdirprin = dataset.pop('SubDir')
@@ -553,8 +583,7 @@ def predict_view(request):
     dataset["Tamaño"] /= 1000000000
     train_dataset = dataset.sample(frac=0.9,random_state=0)
     test_dataset = dataset.drop(train_dataset.index)
-    sns_plot = sns.pairplot(train_dataset[["Tamaño", "Dia", "Mes"]], diag_kind="kde")
-    sns_plot.savefig("/home/linux/PredictBackup/source/media/analisis.png")
+
     train_stats = train_dataset.describe()
     train_stats.pop("Tamaño")
     train_stats = train_stats.transpose()
@@ -579,6 +608,33 @@ def predict_view(request):
     _ = plt.plot([-100, 100], [-100, 100])
     plt.savefig('/home/linux/PredictBackup/source/media/predict.png')
 
+
+    seismeses = pd.read_csv("/home/linux/PredictBackup/source/media/predictgood.csv")
+    normed_predict = norm(seismeses)
+    prediction_last = model.predict(normed_predict).flatten()
+    seismeses["Tamaño"] = prediction_last
+
+    i=0.0
+    for suma in prediction_last:
+        if(suma < 0):
+            suma = suma * -1
+        i += suma
+
+    discos = round(i/size)
+    """
+
+
+
+
+
+
+
+
+
+
+
+
+
     return render(request, "predict.html")
 
 
@@ -588,7 +644,7 @@ def predict_view(request):
 
 def result_view(request):
     size = int(request.POST["size"])
-
+    """
     dataset = pd.read_csv("http://127.0.0.1:8000/media/db3.csv")
     subdir = dataset.pop('SubDir2')
     subdirprin = dataset.pop('SubDir')
@@ -645,6 +701,6 @@ def result_view(request):
         i += suma
 
     discos = round(i/size)
-
+    """
 
     return render(request, "result.html",  {'select':discos,})
