@@ -74,8 +74,9 @@ body {font-family: "Lato", sans-serif}
     <legend id="el11"> <img src="http://localhost:8000/files/images/login/logo2.png"  width="50px" height="31px"  alt="">   Wellcome {{ user.username }} </legend>
 
 
-    <a type="submit" id="btn_load" href="/load_dataset/"  style="margin-top: :100px;" >Load Dataset</a>
-    <a type="submit" id="btn_extract"  href="/load_dataset/"  style="margin-bottom:240px;">Extract Info Disk</a>
+    <a href="/load_dataset/"><button type="button" id="btn_load" name="button"  style="margin-top: :100px;">Load Dataset</button></a>
+    <a href="/load_dataset/"><button type="button" id="btn_extract" name="button" >Extract Info Disk</button></a>
+    <a href="/predictdb/"><button type="button" id="btn_predict" name="button"  style="margin-bottom:180px;">Predict</button></a>
 
 
     {% else %}
